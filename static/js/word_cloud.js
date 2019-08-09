@@ -7,7 +7,7 @@ word_cloud(
     600, //height
     "/static/example.csv", //file_path
     ["#C30E2E","#0D8ACF","#405275","#8FBB33","#fbc280"], //color_list
-    3000, //change interval
+    5000, //change interval
     "overwatch", //font
     "div.test" //tag_select
 ); 

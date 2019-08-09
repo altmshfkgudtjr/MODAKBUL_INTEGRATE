@@ -3008,15 +3008,36 @@ input:checked + .CB_slider_comment:before {
   animation: M_credit_move 3s 1;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
+  cursor: default;
+  -webkit-touch-callout: none; /* iOS Safari */
+   -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Firefox */
+       -ms-user-select: none; /* Internet Explorer/Edge */
+           user-select: none; 
 }
 .M_credit_body {
+  cursor: default;
   background-color: #323639;
+  -webkit-touch-callout: none; /* iOS Safari */
+   -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Firefox */
+       -ms-user-select: none; /* Internet Explorer/Edge */
+           user-select: none; 
 }
 .M_credit_wordcloud_container {
   position: relative;
   width: 800px;
   left: 50%;
+  cursor: default;
   transform: translate(-50%, 0);
+  -webkit-touch-callout: none; /* iOS Safari */
+   -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Firefox */
+       -ms-user-select: none; /* Internet Explorer/Edge */
+           user-select: none; 
 }
 @media screen and (max-width: 800px){
   .M_credit_wordcloud_container {
@@ -3356,6 +3377,23 @@ input:checked + .CB_slider_comment:before {
 }
 .M_credit_return_button:hover {
   color: #c30e2e;
+}
+.M_credit_teamiml_mail {
+  position: relative;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  cursor: default;
+  -webkit-touch-callout: none; /* iOS Safari */
+   -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Firefox */
+       -ms-user-select: none; /* Internet Explorer/Edge */
+           user-select: none; 
+  transition: 0.2s;
+}
+.M_credit_teamiml_mail:hover {
+  transform: scale(1.1,1.1);
 }
 /* POST PAGE Css ===============================================*/
 .postpage_background {
