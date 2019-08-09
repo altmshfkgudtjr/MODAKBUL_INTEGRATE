@@ -1,0 +1,102 @@
+*** Starting uWSGI 2.0.15-debian (64bit) on [Tue Aug  6 08:44:00 2019] ***
+compiled with version: 7.3.0 on 28 September 2018 15:41:15
+os: Linux-4.18.0-15-generic #16~18.04.1-Ubuntu SMP Thu Feb 7 14:06:04 UTC 2019
+nodename: ubuntu
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /home/iml/Desktop/MODAKBUL_INTEGRATE
+detected binary path: /usr/bin/uwsgi-core
+dropping root privileges as early as possible
+your processes number limit is 15441
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address mdb.sock fd 3
+dropping root privileges after socket binding
+Python version: 3.6.8 (default, Jan 14 2019, 11:02:34)  [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]]
+Python main interpreter initialized at 0x560261847e10
+dropping root privileges after plugin initialization
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 702080 bytes (685 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 2 seconds on interpreter 0x560261847e10 pid: 23713 (default app)
+dropping root privileges after application loading
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 23713)
+spawned uWSGI worker 1 (pid: 23719, cores: 2)
+spawned uWSGI worker 2 (pid: 23721, cores: 2)
+spawned uWSGI worker 3 (pid: 23723, cores: 2)
+spawned uWSGI worker 4 (pid: 23725, cores: 2)
+*** Starting uWSGI 2.0.15-debian (64bit) on [Tue Aug  6 08:44:10 2019] ***
+compiled with version: 7.3.0 on 28 September 2018 15:41:15
+os: Linux-4.18.0-15-generic #16~18.04.1-Ubuntu SMP Thu Feb 7 14:06:04 UTC 2019
+nodename: ubuntu
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /home/iml/Desktop/MODAKBUL_INTEGRATE
+detected binary path: /usr/bin/uwsgi-core
+dropping root privileges as early as possible
+your processes number limit is 15441
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address mdb.sock fd 3
+dropping root privileges after socket binding
+Python version: 3.6.8 (default, Jan 14 2019, 11:02:34)  [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]]
+Python main interpreter initialized at 0x55c4190cae10
+dropping root privileges after plugin initialization
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 702080 bytes (685 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 2 seconds on interpreter 0x55c4190cae10 pid: 23729 (default app)
+dropping root privileges after application loading
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 23729)
+spawned uWSGI worker 1 (pid: 23735, cores: 2)
+spawned uWSGI worker 2 (pid: 23737, cores: 2)
+spawned uWSGI worker 3 (pid: 23739, cores: 2)
+spawned uWSGI worker 4 (pid: 23741, cores: 2)
+*** Starting uWSGI 2.0.15-debian (64bit) on [Tue Aug  6 08:44:29 2019] ***
+compiled with version: 7.3.0 on 28 September 2018 15:41:15
+os: Linux-4.18.0-15-generic #16~18.04.1-Ubuntu SMP Thu Feb 7 14:06:04 UTC 2019
+nodename: ubuntu
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /home/iml/Desktop/MODAKBUL_INTEGRATE
+detected binary path: /usr/bin/uwsgi-core
+dropping root privileges as early as possible
+your processes number limit is 15441
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address mdb.sock fd 3
+dropping root privileges after socket binding
+Python version: 3.6.8 (default, Jan 14 2019, 11:02:34)  [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]]
+Python main interpreter initialized at 0x560b14430e10
+dropping root privileges after plugin initialization
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 702080 bytes (685 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x560b14430e10 pid: 23768 (default app)
+dropping root privileges after application loading
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 23768)
+spawned uWSGI worker 1 (pid: 23774, cores: 2)
+spawned uWSGI worker 2 (pid: 23776, cores: 2)
+spawned uWSGI worker 3 (pid: 23778, cores: 2)
+spawned uWSGI worker 4 (pid: 23780, cores: 2)
