@@ -735,6 +735,11 @@ function post_modify() {
 
 //포스트 삭제 함수
 function post_delete() {
+	let delete_choice = confirm("포스트를 삭제하시겠습니까?");
+	if(delete_choice){
+	}else{
+		return;
+	}
 	$('#M_loading_modal_background').removeClass('display_none');
 	let post_id = $('#M_user_post_modal_container').attr('alt').split('_')[1]*1;
 	let token = localStorage.getItem('modakbul_token');

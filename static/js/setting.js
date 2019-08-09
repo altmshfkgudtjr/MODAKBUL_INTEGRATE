@@ -332,6 +332,11 @@ function accept_modify_tag(tag) {
 }
 
 function delete_modify_tag(tag) {
+    let delete_choice = confirm("태그를 삭제하시겠습니까?\n태그에 속한 모든 포스트가 삭제됩니다.");
+    if(delete_choice){
+    }else{
+        return;
+    }
     let value;
     if (tag.prev('input').attr('placeholder') != undefined){
         value = tag.prev('input').attr('placeholder');

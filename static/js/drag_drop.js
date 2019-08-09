@@ -254,6 +254,11 @@ function create_board() {
 }
 
 function delete_board(target) {
+    let delete_choice = confirm("게시판을 삭제하시겠습니까?");
+    if(delete_choice){
+    }else{
+        return;
+    }
     let board = send_data.filter(data => {
         return data.board_name === target[0].parentNode.innerText;
     });

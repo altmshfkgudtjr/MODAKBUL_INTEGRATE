@@ -148,8 +148,8 @@ def get_votes():
 	votes = select_votes(g.db)
 
 	for vote in votes:
-		vote['start_date'] = vote['start_date'].strftime("%Y년 %m월 %d일 %H:%M:%S".encode('unicode-escape').decode()).encode().decode('unicode-escape')	#winodw 버젼
-		vote['end_date'] = vote['end_date'].strftime("%Y년 %m월 %d일 %H:%M:%S".encode('unicode-escape').decode()).encode().decode('unicode-escape')	#winodw 버젼
+		vote['start_date'] = vote['start_date'].strftime("%Y년 %m월 %d일".encode('unicode-escape').decode()).encode().decode('unicode-escape')	#winodw 버젼
+		vote['end_date'] = vote['end_date'].strftime("%Y년 %m월 %d일".encode('unicode-escape').decode()).encode().decode('unicode-escape')	#winodw 버젼
 
 	return jsonify(
 		result = "success",
@@ -167,8 +167,8 @@ def get_vote(vote_id):
 	ques = select_vote_que(g.db, vote_id)
 
 	#프론트의 요구로 날짜 형식 변형
-	vote['start_date'] = vote['start_date'].strftime("%Y년 %m월 %d일 %H:%M:%S".encode('unicode-escape').decode()).encode().decode('unicode-escape')	#winodw 버젼
-	vote['end_date'] = vote['end_date'].strftime("%Y년 %m월 %d일 %H:%M:%S".encode('unicode-escape').decode()).encode().decode('unicode-escape')	#winodw 버젼
+	vote['start_date'] = vote['start_date'].strftime("%Y년 %m월 %d일".encode('unicode-escape').decode()).encode().decode('unicode-escape')	#winodw 버젼
+	vote['end_date'] = vote['end_date'].strftime("%Y년 %m월 %d일".encode('unicode-escape').decode()).encode().decode('unicode-escape')	#winodw 버젼
 
 	for que in ques:
 		select = select_vote_select(g.db, que['que_id'])
