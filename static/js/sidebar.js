@@ -2,6 +2,7 @@ $(window).ready(function () {
     $('#M_loading_modal_background').removeClass('display_none');
     let a_jax = A_JAX(TEST_IP+'get_boards', 'GET', null, null);
     $.when(a_jax).done(function () {
+        $('#M_loading_modal_background').addClass('display_none');
         let result_html = '<ul id="gn-menu2" class="gn-menu">';
         let data = a_jax.responseJSON.boards;
         let result_list = [];

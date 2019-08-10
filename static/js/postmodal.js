@@ -16,6 +16,7 @@ function postpage_open(get_post_href, get_post_id){
 }
 
 function postmodal_open(get_post_id){
+	//$('#M_post_user_comment_container').width($('#M_user_post_modal_container').width());
 	let searchParams = new URLSearchParams(window.location.search);
 	let request_board = searchParams.get('type');
 	is_post_like = 0;
@@ -130,6 +131,10 @@ slider2.addEventListener('mousemove', (e) => {
   const x = e.pageX - slider2.offsetLeft;
   const walk2 = (x - startX2) * 3; //scroll-fast
   slider2.scrollLeft = scrollLeft2 - walk2;
+});
+
+$('#M_post_user_comment_anony').click(function(){
+	$('#M_post_user_comment_input').focus();
 });
 
 
@@ -280,6 +285,7 @@ $(document).keydown(function(event){
 				}
 			}
 			if (search_bar_value == 1){
+				console.log("27");
 				search_bar_value = 0;
 				var container = $("#M_search_bar");
 				var search_bar = $("#M_search_bar");
@@ -479,36 +485,71 @@ function empty_post_info(){
 
 
 //다른곳클릭하면 double comment 취소
-$(document).mouseup(function (e) {
-	if (comment_double_check == 1){
-		let container = $("#M_post_user_comment_container");
-		if (!container.is(e.target) && container.has(e.target).length === 0){
-			let comment_id = $('#M_post_user_comment_input').attr('alt');
-			$('#M_post_user_comment_input').removeAttr("alt");
-			comment_double_check = 0;
-			$('div[alt=comment_'+comment_id+']').removeAttr('style');
-			$('div[alt=comment_'+comment_id+']').removeClass("comment_check");
-		}
+if ( navigator.platform ) { //mobile
+	if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
+		$(document).bind("touchend", function (e) {
+			let mobile_seletor = navigator.platform.toLowerCase();
+			if (comment_double_check == 1){
+				let container = $("#M_post_user_comment_container");
+				if (!container.is(e.target) && container.has(e.target).length === 0){
+					let comment_id = $('#M_post_user_comment_input').attr('alt');
+					$('#M_post_user_comment_input').removeAttr("alt");
+					comment_double_check = 0;
+					$('div[alt=comment_'+comment_id+']').removeAttr('style');
+					$('div[alt=comment_'+comment_id+']').removeClass("comment_check");
+					$('#M_post_user_comment_input').blur();
+					if (mobile_seletor.indexOf("iphone")>-1||mobile_seletor.indexOf("ipad")>-1||mobile_seletor.indexOf("ipod")>-1){
+					} else {
+						$('#M_comment_bottom_empty').animate({'height': '50px'}, 400);
+					}
+				}
+			} else {
+				let container = $("#M_post_user_comment_container");
+				if (!container.is(e.target) && container.has(e.target).length === 0){
+					$('#M_post_user_comment_input').blur();
+					if (mobile_seletor.indexOf("iphone")>-1||mobile_seletor.indexOf("ipad")>-1||mobile_seletor.indexOf("ipod")>-1){
+					} else {
+						$('#M_comment_bottom_empty').animate({'height': '50px'}, 400);
+					}
+				}
+			}
+		});
+	} else {	//pc
+		$(document).mouseup(function (e) {
+			if (comment_double_check == 1){
+				let container = $("#M_post_user_comment_container");
+				if (!container.is(e.target) && container.has(e.target).length === 0){
+					let comment_id = $('#M_post_user_comment_input').attr('alt');
+					$('#M_post_user_comment_input').removeAttr("alt");
+					comment_double_check = 0;
+					$('div[alt=comment_'+comment_id+']').removeAttr('style');
+					$('div[alt=comment_'+comment_id+']').removeClass("comment_check");
+				}
+			}
+		});
 	}
-});
+}
 
 // 모바일 pc 구분
 if ( navigator.platform ) { //mobile
 	if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
 		$('#M_post_user_comment_input').focus(function() {
-			$('#M_comment_bottom_empty').height('60%');
+			//$('#M_user_post_modal_container').animate({scrollTop : $('body').prop('scrollHeight')}, 400);
 			let mobile_seletor = navigator.platform.toLowerCase();
 			//IOS
 			if (mobile_seletor.indexOf("iphone")>-1||mobile_seletor.indexOf("ipad")>-1||mobile_seletor.indexOf("ipod")>-1){
 				$('#M_user_post_modal_container').animate({scrollTop : $('#M_user_post_modal_container').height() + $('#M_user_post_modal_container').height()/100*68}, 400);
 			} else {	//ANDROID
+				$('#M_comment_bottom_empty').height('60%');
 				$('#M_post_user_comment_container').css("position", "fixed");
 				$('#M_post_user_comment_container').css("padding", "5px 5px 5px 5px");
 			}
 		});
 		$('#M_post_user_comment_input').blur(function() {
-			$('#M_comment_bottom_empty').height('200px');
+			$('#M_comment_bottom_empty').height('50px');
 		});
+	} else {
+
 	}
 }
 
@@ -646,8 +687,20 @@ function attachment_donwload(file){
 	document.body.removeChild(element);
 }
 
-//클립보드 복사 함수
+//클립보드 복사 함수 selector
 function clipboardCopy(tag) {
+var varUA = navigator.userAgent.toLowerCase(); //userAgent 값 얻기
+	if (varUA.match('android') != null) { 
+	    clipboardCopyAndroid(tag);	//Android clipboard copy function
+	} else if (varUA.indexOf("iphone")>-1||varUA.indexOf("ipad")>-1||varUA.indexOf("ipod")>-1) { 
+	    clipboardCopyIOS(tag);		//IOS clipboard copy function
+	} else {
+	    clipboardCopyAndroid(tag);	//Another device clipboard copy function
+	}
+}
+
+//Android 클립보드 복사 함수
+function clipboardCopyAndroid(tag) {
 	let post_id = tag.getAttribute('alt');
 	var clipboard_textarea = document.createElement('textarea');
 	clipboard_textarea.setAttribute('id', 'clipboard_copy');
@@ -659,6 +712,20 @@ function clipboardCopy(tag) {
 	document.getElementById('clipboard_copy').blur();
 	snackbar("URL 복사완료!");
 	$('textarea').remove('#clipboard_copy');
+}
+
+//IOS 클립보드 복사 함수
+function clipboardCopyIOS(tag) {
+	let post_id = tag.getAttribute('alt');
+	var clipboard_textarea = document.createElement('textarea');
+	clipboard_textarea.value = DOMAIN+TEST_IP+"v#"+post_id;
+	clipboard_textarea.style.zIndex = "-3000";
+	document.body.appendChild(clipboard_textarea);
+	clipboard_textarea.select();
+	clipboard_textarea.setSelectionRange(0, 9999);  // 추가
+	document.execCommand('copy');
+	snackbar("URL 복사완료!");
+	document.body.removeChild(clipboard_textarea);
 }
 
 //포스트 작성 함수

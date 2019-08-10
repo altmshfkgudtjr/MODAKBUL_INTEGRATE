@@ -1,9 +1,18 @@
+//이스터에크 진동^^
+navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+function vibrate() {
+  if (navigator.vibrate) {
+    window.navigator.vibrate(200); // 진동을 울리게 한다. 1000ms = 1초
+  }
+}
+
 $(document).ready(function(ev) {
   var toggle = $('#ss_toggle');
   var menu = $('#ss_menu');
   var rot;
   
   $('#ss_toggle').on('click', function(ev) {
+    vibrate();
     rot = parseInt($(this).data('rot')) - 180;
     menu.css('transform', 'rotate(' + rot + 'deg)');
     menu.css('webkitTransform', 'rotate(' + rot + 'deg)');
