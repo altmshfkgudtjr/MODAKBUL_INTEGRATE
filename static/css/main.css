@@ -1333,6 +1333,7 @@ a:focus {
     font-size: 40px;
   }
 }
+/*
 .pseudo-scroller {
   height: 3700px !important;
 }
@@ -1345,7 +1346,7 @@ a:focus {
   .pseudo-scroller {
     height: 6500px !important;
   }
-}
+}*/
 /*post modal=======================================================================*/
 .M_user_post_modal_background {
   width: 100%;
@@ -1922,6 +1923,15 @@ a:focus {
   .M_user_post_modal_container_fixed {
     width: 99%;
     height: 620px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+@media screen and (max-height: 600px){
+  .M_user_post_modal_container_fixed {
+    width: 99%;
+    height: 500px;
+    min-height: 500px;
     padding-left: 10px;
     padding-right: 10px;
   }
