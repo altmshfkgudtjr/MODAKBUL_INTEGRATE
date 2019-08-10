@@ -146,7 +146,9 @@ $(document).ready(()=>{
                 '</div>';
         }
         $('#M_student_introduce_target_2').append(result_html2);
-        bio_cnt = intro_ajax2.responseJSON.department[intro_ajax2.responseJSON.department.length - 1].dm_id + 1;
+        if (intro_ajax2.responseJSON.department.length != 0) {
+            bio_cnt = intro_ajax2.responseJSON.department[intro_ajax2.responseJSON.department.length - 1].dm_id + 1;
+        }
         change_setting_theme();
     });
     let user_list_html_ajax = A_JAX(TEST_IP+'get_user_list', "GET", null, null);
@@ -388,6 +390,7 @@ function modify_tag(tag) {
     input_tag.setAttribute('type', 'text');
     input_tag.classList.add('M_setting_tag_change_input');
     input_tag.setAttribute('placeholder', prev_value);
+    input_tag.setAttribute('onkeypress', 'tag_input_modify_enter_selector($(this), event)');
     tag.prev().prev().replaceWith($(input_tag));
     $(input_tag).focus();
     tag.parent().css('border-bottom', '1.5px solid #c30e2e');
@@ -411,13 +414,117 @@ function cancel_modify_tag(tag) {
 
 function plus_tag_button(tag) {
     let reader = '<div class="M_tag_list_item" style="border-bottom: 1.5px solid rgb(195, 14, 46);">#'+
-                '<input type="text" class="M_setting_tag_change_input2" placeholder="태그명을 입력해주세요.">'+
+                '<input type="text" class="M_setting_tag_change_input2" placeholder="태그명을 입력해주세요." onkeypress="tag_input_append_enter_selector($(this), event)">'+
                 '<i onclick="plus_tag_delete($(this))" class="far fa-times-circle M_tag_icon_cancel"></i>'+
                 '<i onclick="plus_tag_append($(this))" class="fas fa-check M_tag_icon_check"></i>'+
                 '</div>';
     $('.M_tag_list').append(reader);
     $('.M_tag_list').children().last().children('input').focus();
 }
+
+function tag_input_modify_enter_selector(tag, event){
+    if (event.keyCode == 13){
+        $('#M_loading_modal_background').removeClass('display_none');
+        let old_value = tag.attr('placeholder');
+        let new_value = tag.val();
+        let send_data = new FormData();
+        send_data.append('new_tag', new_value);
+        send_data.append('old_tag', old_value);
+        let a_jax = A_JAX_FILE(TEST_IP+'update_tag', 'POST', null, send_data);
+        $.when(a_jax).done(function(){
+            let json = a_jax.responseJSON;
+            if (json['result'] == 'success'){
+                snackbar("태그를 수정하였습니다.");
+                $('.M_tag_list').empty();
+                let tag_ajax = A_JAX(TEST_IP+'get_access_tags', 'GET', null, null);
+                $.when(tag_ajax).done(function() {
+                    for (let i=0; i<tag_ajax.responseJSON.tags.length; i++)
+                    {
+                        $('.M_tag_list').append(
+                            '<div class="M_tag_list_item">'+
+                            '# <div class="M_tag_name" style="display:inline;">' + tag_ajax.responseJSON.tags[i] + ' </div>'+
+                            '<i onclick="delete_modify_tag($(this))" class="fas fa-trash-alt M_tag_icon_delete"></i>'+
+                            '<i onclick="modify_tag($(this))" class="fas fa-pencil-alt M_tag_icon_fixed"></i>'+
+                            '<i onclick="cancel_modify_tag($(this))" style="display: none;" class="far fa-times-circle M_tag_icon_cancel"></i>'+
+                            '<i onclick="accept_modify_tag($(this))" style="display: none;" class="fas fa-check M_tag_icon_check"></i>'+
+                            '</div>'
+                        )
+                    }
+                });
+                let tag_input_ajax = A_JAX(TEST_IP+'get_access_tags', 'GET', null, null);
+                $('.M_nav_add').empty();
+                $.when(tag_input_ajax).done(function() {
+                    for (let i=0; i<tag_input_ajax.responseJSON.tags.length; i++)
+                    {
+                        $('.M_nav_add').append('<div onclick="select_tag($(this))" class="M_nav_tag"># ' + tag_ajax.responseJSON.tags[i] + '</div>')
+                    }
+                });
+                $('#M_loading_modal_background').addClass('display_none');
+            } else if (json['result'] == 'already tag'){
+                $('#M_loading_modal_background').addClass('display_none');
+                snackbar("사용할 수 없는 태그입니다.");
+            } else if (json['result'] == 'do not use special characters'){
+                $('#M_loading_modal_background').addClass('display_none');
+                snackbar("특수기호는 사용할 수 없습니다.");
+            }
+            else {
+                $('#M_loading_modal_background').addClass('display_none');
+                snackbar("태그 수정에 실패하였습니다.");
+            }
+        });
+    }
+}
+
+function tag_input_append_enter_selector(tag, event){
+    if (event.keyCode == 13){
+        let value = tag.val();
+        if (value == ""){
+            snackbar("태그명을 입력해주세요.");
+            tag.focus();
+        } else {
+            let send_data = new FormData();
+            send_data.append('tag', value);
+            $('#M_loading_modal_background').removeClass('display_none');
+            let a_jax = A_JAX_FILE(TEST_IP+'input_tag', "POST", null, send_data);
+            $.when(a_jax).done(function(){
+                $('#M_loading_modal_background').addClass('display_none');
+                let json = a_jax.responseJSON;
+                if (json['result'] == 'success'){
+                    snackbar("태그가 추가되었습니다.");
+                    $('.M_tag_list').empty();
+                    let tag_ajax = A_JAX(TEST_IP+'get_access_tags', 'GET', null, null);
+                    $.when(tag_ajax).done(function() {
+                        for (let i=0; i<tag_ajax.responseJSON.tags.length; i++)
+                        {
+                            $('.M_tag_list').append(
+                                '<div class="M_tag_list_item">'+
+                                '#<div class="M_tag_name" style="display:inline;">' + tag_ajax.responseJSON.tags[i] + ' </div>'+
+                                '<i onclick="delete_modify_tag($(this))" class="fas fa-trash-alt M_tag_icon_delete"></i>'+
+                                '<i onclick="modify_tag($(this))" class="fas fa-pencil-alt M_tag_icon_fixed"></i>'+
+                                '<i onclick="cancel_modify_tag($(this))" style="display: none;" class="far fa-times-circle M_tag_icon_cancel"></i>'+
+                                '<i onclick="accept_modify_tag($(this))" style="display: none;" class="fas fa-check M_tag_icon_check"></i>'+
+                                '</div>'
+                            )
+                        }
+                    });
+                    let tag_input_ajax = A_JAX(TEST_IP+'get_access_tags', 'GET', null, null);
+                    $('.M_nav_add').empty();
+                    $.when(tag_input_ajax).done(function() {
+                        for (let i=0; i<tag_input_ajax.responseJSON.tags.length; i++)
+                        {
+                            $('.M_nav_add').append('<div onclick="select_tag($(this))" class="M_nav_tag"># ' + tag_ajax.responseJSON.tags[i] + '</div>')
+                        }
+                    });
+                } else if (json['result'] == 'already tag'){
+                    snackbar("사용할 수 없는 태그입니다.");
+                } else {
+                    snackbar("태그 추가에 실패하였습니다.");
+                }
+            }); 
+        }
+    }
+}
+
 
 function plus_tag_append(tag) {
     let value = tag. prev().prev().val();
@@ -590,7 +697,6 @@ function submit_bio() {
     }
     if (main_bio_updated === true)
     {
-        console.log($('#M_union_info_wrapper_introduce_textarea').val());
         let introduce_textarea_value; // 학생회 소개 textarea
         let tmp;
         tmp =  $('#M_union_info_wrapper_introduce_textarea').val();
@@ -655,49 +761,6 @@ function settingsPage_check_admin() {
         location.href = "/";
     });
 }
-function search_user() {
-    let search = $('.M_user_search').val();
-    if (search == ""){
-        $('#M_user_info').empty();
-        return;
-    }
-    let ajax = A_JAX(TEST_IP+"get_user_search", "POST", null, {'search': search});
-    let result_html = '';
-    $.when(ajax).done(()=>{
-        if (ajax.responseJSON.result === 'user is not defined') {
-            snackbar('사용자가 없습니다.')
-        }
-        else {
-            snackbar(ajax.responseJSON.user.length+" 명이 검색되었습니다.");
-            for (let i = 0; i < ajax.responseJSON.user.length; i++){
-                let major = '';
-                for (let j=0; j<DEPARTMENTS.length; j++){
-                    if (ajax.responseJSON.user[i].tags.indexOf(DEPARTMENTS[j]) !== -1) {
-                        major = DEPARTMENTS[j];
-                        break;
-                    }
-                }
-                result_html +=
-                    '<div class="M_user_info_container">'+
-                    '<div style="background-color: ' +  ajax.responseJSON.user[i].user_color + '" class="M_setting_user_tag"></div>'+
-                    '<div class="M_setting_subtitle_name">'+
-                    ' ' + ajax.responseJSON.user[i].user_name + ' ' + ajax.responseJSON.user[i].user_id + ' '+ major +
-                    '</div>'+
-                    '<div onclick="black_user($(this).parent())" class = "M_setting_black_button"> 블랙</div></div><br>';
-            }
-            $('#M_user_info').empty();
-            $('#M_user_info').append(result_html);
-        }
-    })
-}
-
-$('.M_user_search').keypress(function (e) {
-    let key = e.which;
-    if(key === 13)
-    {
-        search_user();
-    }
-});
 
 function black_user(div) {
     let ajax = A_JAX(TEST_IP+"user_black_apply", "POST", null, {'target_id': div[0].childNodes[1].innerText.split(' ')[1]});
@@ -789,6 +852,10 @@ function update_bio(type) {
         }
     }
 
+    if (list.length == 0){
+         $('#M_loading_modal_background').addClass('display_none');
+         return;
+    }
     for (let i=0; i<list.length; i++) {
         let image = $(list[i].children[0].children[2])[0].files[0];
         let name = $(list[i].children[1].children[1].children[0]).val();
@@ -872,14 +939,18 @@ function add_intro() {
 }
 
 function delete_intro(target, id) {
-    $('#M_loading_modal_background').removeClass('display_none');
-    target.parent().remove();
-
-    if (id === undefined){
-        bio_cnt--;
+    let delete_choice = confirm("소개를 삭제하시겠습니까?");
+    if(delete_choice){
+    }else{
         return;
     }
-
+    $('#M_loading_modal_background').removeClass('display_none');
+    target.parent().remove();
+    if (id === undefined){
+        bio_cnt--;
+        $('#M_loading_modal_background').addClass('display_none');
+        return;
+    }
     let intro_ajax2 = A_JAX(TEST_IP+'department_delete/'+id, 'GET', null, null);
     $.when(intro_ajax2).done(()=>{
         $('#M_loading_modal_background').addClass('display_none');

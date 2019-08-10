@@ -506,12 +506,9 @@ input {
     line-height: 40px;
     margin-bottom: 10px;
     transition: 0.4s;
-    cursor: pointer;
+    cursor: default;
     text-align: center;
     font-size: 20px;
-}
-.M_user_search_button:hover {
-    color: #58d878;
 }
 #sortable {
     list-style-type: none;

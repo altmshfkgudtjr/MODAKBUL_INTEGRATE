@@ -3022,7 +3022,7 @@ input:checked + .CB_slider_comment:before {
   animation: M_credit_move 3s 1;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
-  cursor: default;
+  cursor: pointer;
   -webkit-touch-callout: none; /* iOS Safari */
    -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
