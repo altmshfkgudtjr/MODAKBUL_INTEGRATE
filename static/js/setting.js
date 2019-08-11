@@ -286,6 +286,8 @@ function accept_modify_tag(tag) {
     $('#M_loading_modal_background').removeClass('display_none');
     let old_value = tag.prev().prev().prev().prev().attr('placeholder');
     let new_value = tag.prev().prev().prev().prev().val();
+    old_value = replaceAll(old_value, " ", "");
+    new_value = replaceAll(new_value, " ", "");
     let send_data = new FormData();
     send_data.append('new_tag', new_value);
     send_data.append('old_tag', old_value);
@@ -427,6 +429,8 @@ function tag_input_modify_enter_selector(tag, event){
         $('#M_loading_modal_background').removeClass('display_none');
         let old_value = tag.attr('placeholder');
         let new_value = tag.val();
+        old_value = replaceAll(old_value, " ", "");
+        new_value = replaceAll(new_value, " ", "");
         let send_data = new FormData();
         send_data.append('new_tag', new_value);
         send_data.append('old_tag', old_value);
@@ -482,6 +486,7 @@ function tag_input_append_enter_selector(tag, event){
             snackbar("태그명을 입력해주세요.");
             tag.focus();
         } else {
+            value = replaceAll(value, " ", "");
             let send_data = new FormData();
             send_data.append('tag', value);
             $('#M_loading_modal_background').removeClass('display_none');
@@ -532,6 +537,7 @@ function plus_tag_append(tag) {
         snackbar("태그명을 입력해주세요.");
         tag.focus();
     } else {
+        value = replaceAll(value, " ", "");
         let send_data = new FormData();
         send_data.append('tag', value);
         $('#M_loading_modal_background').removeClass('display_none');
@@ -974,4 +980,9 @@ function search_user_list_realtime(tag) {
             $('div[alt_id='+num+']').css('display', 'none');
         }
     }
+}
+
+// replace ALL
+function replaceAll(str, searchStr, replaceStr) {
+    return str.split(searchStr).join(replaceStr);
 }

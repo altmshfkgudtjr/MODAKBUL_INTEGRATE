@@ -2,7 +2,6 @@ let flag = true;
 let searchParams = new URLSearchParams(window.location.search);
 let request_board = searchParams.get('type');
 let search = searchParams.get('search');
-
 $(window).ready(function() {
     if (search == null) {
         var ajax_board = A_JAX(TEST_IP+'get_board/'+request_board, 'GET', null, null);
@@ -77,6 +76,9 @@ $(window).ready(function() {
                     is_lock_icon = "M_board_content_lock_none";
                 } else {
                     is_lock_icon = "M_board_content_lock_block";
+                }
+                if(request_board.split('_')[0] == '대외활동'){
+                    submission_time = submission_time.slice(0,14) + "까지";
                 }
                 $(".M_board_contents_container")
                     .append(
