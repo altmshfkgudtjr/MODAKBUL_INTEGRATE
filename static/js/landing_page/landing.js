@@ -251,7 +251,7 @@ function createLandscape_white(params){
     render();
 
     if(isMobile)
-      window.addEventListener("touchmove", onInputMove, {passive:false})
+      window.addEventListener("touchmove", onInputMove, {passive:true})
     else
       window.addEventListener("mousemove", onInputMove)
 
@@ -364,7 +364,14 @@ function createLandscape_white(params){
   }
 
   function onInputMove(e){
-    e.preventDefault();
+    let filter = "win16|win32|win64|mac|macintel";
+    if ( navigator.platform ) { //mobile
+      if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
+      } else {
+         e.preventDefault();
+      }
+    }
+    
 
     var x, y
     if(e.type == "mousemove"){

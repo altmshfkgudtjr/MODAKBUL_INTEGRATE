@@ -1,5 +1,6 @@
 //라벨, 이름, 시간, 제목, 본문, 조회수, 공감수, 댓글, 첨부파일, 사진, 태그
-var file_max_size = 50 * 1024 * 1024;	// 50MB
+var PROTOCOL = "http://";
+var file_max_size = 500 * 1024 * 1024;	// 50MB
 var filter = "win16|win32|win64|mac|macintel";
 var is_postmodal_open = 0;
 var is_postmodal_fixed_open = 0;
@@ -500,7 +501,7 @@ if ( navigator.platform ) { //mobile
 					$('#M_post_user_comment_input').blur();
 					if (mobile_seletor.indexOf("iphone")>-1||mobile_seletor.indexOf("ipad")>-1||mobile_seletor.indexOf("ipod")>-1){
 					} else {
-						$('#M_comment_bottom_empty').animate({'height': '50px'}, 400);
+						$('#M_comment_bottom_empty').animate({'height': '150px'}, 400);
 					}
 				}
 			} else {
@@ -509,7 +510,7 @@ if ( navigator.platform ) { //mobile
 					$('#M_post_user_comment_input').blur();
 					if (mobile_seletor.indexOf("iphone")>-1||mobile_seletor.indexOf("ipad")>-1||mobile_seletor.indexOf("ipod")>-1){
 					} else {
-						$('#M_comment_bottom_empty').animate({'height': '50px'}, 400);
+						$('#M_comment_bottom_empty').animate({'height': '150px'}, 400);
 					}
 				}
 			}
@@ -704,7 +705,7 @@ function clipboardCopyAndroid(tag) {
 	let post_id = tag.getAttribute('alt');
 	var clipboard_textarea = document.createElement('textarea');
 	clipboard_textarea.setAttribute('id', 'clipboard_copy');
-	clipboard_textarea.value = DOMAIN+TEST_IP+"v#"+post_id;
+	clipboard_textarea.value = PROTOCOL+DOMAIN+TEST_IP+"v#"+post_id;
 	clipboard_textarea.style.zIndex = "-3000";
 	document.body.appendChild(clipboard_textarea);
 	clipboard_textarea.select();
@@ -718,7 +719,7 @@ function clipboardCopyAndroid(tag) {
 function clipboardCopyIOS(tag) {
 	let post_id = tag.getAttribute('alt');
 	var clipboard_textarea = document.createElement('textarea');
-	clipboard_textarea.value = DOMAIN+TEST_IP+"v#"+post_id;
+	clipboard_textarea.value = PROTOCOL+DOMAIN+TEST_IP+"v#"+post_id;
 	clipboard_textarea.style.zIndex = "-3000";
 	document.body.appendChild(clipboard_textarea);
 	clipboard_textarea.select();

@@ -135,3 +135,16 @@ function get_post_info(get_post_id) {
 		}
 	});
 }
+
+//file download function
+function attachment_donwload(file){
+	let date = file.split('_')[0];
+	let title = file.slice(date.length + 1);
+	var element = document.createElement('a');
+	element.setAttribute('href', '../static/files/'+file);
+	element.setAttribute('download', title);
+	element.style.display = 'none';
+	document.body.appendChild(element);
+	element.click();
+	document.body.removeChild(element);
+}
