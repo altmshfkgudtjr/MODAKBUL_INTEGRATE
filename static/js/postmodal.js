@@ -11,6 +11,7 @@ var img_set = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
 var file_path = "../static/files/";
 var is_post_modify = 0;
 var is_post_property = 0;
+
 function postpage_open(get_post_href, get_post_id){
 	let a_jax = A_JAX(TEST_IP+"view_up/"+get_post_id, "GET", null, null);
 	window.open(get_post_href, '_blank');

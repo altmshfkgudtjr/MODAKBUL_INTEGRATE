@@ -131,7 +131,7 @@ $(window).scroll(function() {
                             let is_attachment_icon = data.file_cnt;
                             let is_lock_icon = data.post_secret;
                             let user_name = data.author_name;
-                            let post_original = "'"+data.post_url_link+"'";
+                            let post_original = data.post_url_link;
                             let post_href;
                             if (post_original != null){
                                 post_original = "'"+post_original+"'";
